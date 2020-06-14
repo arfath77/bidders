@@ -1,38 +1,23 @@
 import React from 'react';
-import {reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import * as actions from '../../actions';
-
 import FormTemplate from './FormTemplate';
+import {signinData} from './authFieldsData';
+ 
 
- const formData = [
-    {label : 'Enter Email address', name:"email", placeholder:"name.name@example.com", iconClass: 'fa-envelope', type:"email"},
-    {label : "Enter password", name: "password", placeholder: 'Password', type: 'password', iconClass: 'fa-lock'}
-]
-
-class Signin extends React.Component {
-   
+class Signin extends React.Component { 
     render(){
         return (
-            <form onSubmit={this.props.handleSubmit(()=> this.props.signin(this.props.formValues))}>
-                <FormTemplate formData={formData}/>
-            </form>
+            <section className="section">
+                <h1 className="title">Sign In</h1>
+                <FormTemplate form="signIn" 
+                    formData={signinData} 
+                    onSubmit={(formValues) => this.props.signin(formValues, this.props.history)}/>
+            </section>
         )
     }
 }
 
-function validate (values) {
-    const error={};
-    // error.recipients = validateEmails(values.recipients || '');
-    formData.forEach(({name}) => {
-        if (!values[name]){
-            error[name] = 'Please Enter a Value';
-        }
-    })
-    return error;
-}
-
-export default connect(null, actions)(reduxForm({
-    validate,
-    form: 'signinForm'
-})(Signin))
+export default connect(null, actions)(withRouter(Signin));

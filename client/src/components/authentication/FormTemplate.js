@@ -1,18 +1,43 @@
 import React from 'react';
-import {Field} from 'redux-form';
+import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router-dom';
 
 import FormFields from './FormFields';
+import {isInputBlank} from '../../utils/validateData';
 
-const FormTemplate = ({formData}) => {
-    return (
-        <div>
-            {formData.map(({name, label})=>{return (<Field key={name} name={name} label={label} component={FormFields}/>)})}
-            <Link to="/" className="button is-link is-light">Cancel</Link>
-            <button className="button is-link">Submit</button>
-        </div>
-    )
+
+class FormTemplate extends React.Component{
+    renderFields = (formData) => {
+        return formData.map((data)=>{
+            return (
+                <Field key={data.name} 
+                        name={data.name}
+                        component={FormFields}
+                        fieldAttrs={data} 
+                        />
+        )})};
+
+    render(){
+        return (
+            <div>
+                <form className="column is-half px-0" onSubmit={this.props.handleSubmit(this.props.onSubmit)}>
+                    {this.renderFields(this.props.formData)}
+                    <Link to="/" className="button is-link is-light" style={{marginRight:'5px'}}>Cancel</Link>
+                    <button className="button is-link">Submit</button>
+                </form>
+            </div>
+        )
+    }
+        
 }
 
-export default FormTemplate;
+function validate (values, ownProps) {
+    let error={};
+    error = isInputBlank(ownProps.formData, error, values);
+    return error;
+}
+
+export default (reduxForm({
+    validate
+})(FormTemplate))
 

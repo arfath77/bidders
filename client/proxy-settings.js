@@ -12,17 +12,17 @@ module.exports = {
   // the ports
   ports: {
     // where you want to run the 'joint' proxied server
-    main: 4000,
+    main: 9000,
     // where you want to run the react-dev-server
     react: 3000,
     // where you serve your api (make sure to serve it on that port)
-    api: 5000
+    api: 6000
   },
   // a path to an optional script to run after builds
   postBuildScript: './postBuildScript.js',
   // a function that should return true if the backend-api 
   // is to handle the request (add your own logic here as needed)
   handleWithAPI(url) {
-    return url.indexOf('/auth/') === 0;
+    return url.indexOf('/api/') === 0;
   }
 };

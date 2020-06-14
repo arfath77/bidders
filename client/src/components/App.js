@@ -13,7 +13,6 @@ class App extends React.Component {
     componentDidMount(){
         this.props.fetchUser();
     }
-    
     render(){
         return (
             <div>
@@ -22,7 +21,7 @@ class App extends React.Component {
                         <Header />
                         <Route path="/" exact component={Homepage} />
                         <Route path="/signup" component={Signup} />
-                        <Route path="signin" component={Signin} />
+                        <Route path="/signin" component={Signin} />
                     </div>
                 </BrowserRouter>
             </div>
