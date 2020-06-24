@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import * as actions from '../actions';
+import * as actions from '../../actions';
 
 class Header extends React.Component {
     renderContent = () => {
@@ -20,9 +20,24 @@ class Header extends React.Component {
                         </div>
                 );
             default:
+                renderBtn = () => {
+                    if (this.props.auth.authority === 'Retailer'){
+                        return (
+                            <>
+                                <Link to="/requirement/create" className="button is-primary">Post Add</Link>
+                                <Link to="/requirement/myAdds" className="button is-primary">My Adds</Link>
+                            </>
+                        )
+                    } else {
+                        return(
+                            <Link to="/distributor/myBids" className="button is-primary">My Bids</Link>
+                        )
+                    }
+                }
                 return (
                     <div className="buttons">
-                        <button className="button is-primary">Post Add</button>
+                        {this.renderBtn()}
+                        <Link to="/requirement/list" className="button is-primary">All Adds</Link>
                         <button onClick={() => this.props.logout()} className="button is-light">Logout</button>
                     </div>
                 );

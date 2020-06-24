@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import * as actions from '../../actions';
-import FormTemplate from './FormTemplate';
-import {signupData} from './authFieldsData';
+import FormTemplate from '../form/FormTemplate';
+import {signupData, signupBtn} from './authFieldsData';
 
 
 class Signup extends React.Component {
@@ -14,7 +14,8 @@ class Signup extends React.Component {
             <section className="section">
                 <h1 className="title">Sign Up</h1>
                 <FormTemplate form="signUp" 
-                    formData={signupData} 
+                    formData={signupData}
+                    formBtn={signupBtn}
                     onSubmit={(formValues) => this.props.signup(formValues, this.props.history)}/>
             </section>
         )

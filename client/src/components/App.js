@@ -1,12 +1,13 @@
 import React from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import {connect} from 'react-redux'
 
 import * as actions from '../actions';
-import Header from './Header';
-import Homepage from './Homepage';
-import Signin from './authentication/Signin';
-import Signup from './authentication/Signup';
+import Header from './common/Header';
+import Footer from './common/Footer';
+import requirementsRoutes from '../routes/requirementsRoutes';
+import distributorsRoutes from '../routes/distributorsRoutes';
+import ScrollToTop from './common/ScrollToTop';
 
 
 class App extends React.Component {
@@ -15,16 +16,17 @@ class App extends React.Component {
     }
     render(){
         return (
-            <div>
                 <BrowserRouter>
-                    <div>
-                        <Header />
-                        <Route path="/" exact component={Homepage} />
-                        <Route path="/signup" component={Signup} />
-                        <Route path="/signin" component={Signin} />
-                    </div>
+                    <ScrollToTop>
+                        <div className="container">
+                            <Header />
+                            {commonRoutes()}
+                            {requirementsRoutes()}
+                            {distributorsRoutes()}
+                            <Footer />
+                        </div>
+                    </ScrollToTop>
                 </BrowserRouter>
-            </div>
         )
     }
 }
