@@ -16,7 +16,7 @@ class CreateRequirement extends React.Component {
                     initialValues={{ category: 'defaultSelect' }}
                     formData={requirementData} 
                     formBtn={requirementBtn}
-                    onSubmit={(formValues) => this.props.postRequirement(formValues, this.props.history)}/>
+                    onSubmit={(formValues) => this.props.addRequirement(formValues, this.props.history)}/>
             </section>
         )
     }

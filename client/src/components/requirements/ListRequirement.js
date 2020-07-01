@@ -18,7 +18,7 @@ class ListRequirement extends React.Component {
 }
 
 const mapStateToProps = ({list}) => {
-    return list;
+    return {list};
 }
 
 export default connect(mapStateToProps,actions)(ListRequirement);

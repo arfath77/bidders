@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import * as actions from '../actions';
 import Header from './common/Header';
 import Footer from './common/Footer';
+import commonRoutes from '../routes/commonRoutes';
 import requirementsRoutes from '../routes/requirementsRoutes';
 import distributorsRoutes from '../routes/distributorsRoutes';
 import ScrollToTop from './common/ScrollToTop';
@@ -17,15 +18,16 @@ class App extends React.Component {
     render(){
         return (
                 <BrowserRouter>
-                    <ScrollToTop>
                         <div className="container">
                             <Header />
-                            {commonRoutes()}
-                            {requirementsRoutes()}
-                            {distributorsRoutes()}
+                            <ScrollToTop>
+                                {commonRoutes()}
+                                {requirementsRoutes()}
+                                {distributorsRoutes()}
+                            </ScrollToTop>
                             <Footer />
                         </div>
-                    </ScrollToTop>
+                    
                 </BrowserRouter>
         )
     }

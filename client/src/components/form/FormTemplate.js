@@ -6,18 +6,19 @@ import Input from './Input';
 import {isInputBlank} from '../../utils/validateData';
 import Select from './Select';
 import Textarea from './Textarea';
+import ImageUpload from './ImageUpload';
 
 
 
 class FormTemplate extends React.Component{
-    renderFields = (formData) => {
+    renderFields = (formData) => {        
         return formData.map((data)=>{
             switch (data.type) {
                 case 'number':
 					return (
 						<Field
-							key={name}
-							name={name}
+							key={data.name}
+							name={data.name}
 							component={Input}
 							fieldAttrs={data}
 						/>
@@ -25,24 +26,26 @@ class FormTemplate extends React.Component{
                     case 'file':
                         return (
                             <Field
-                                key={name}
+                                key={data.name}
                                 type="text"
                                 multiple={true}
-                                name={name}
+                                name={data.name}
                                 component={ImageUpload}
-                                fieldAttrs={data, {defaultImages: this.props.initialValues.images}}
+                                fieldAttrs={{data, defaultImages: this.props.initialValues.images}}
                             />
                         );
-                case textarea:
+                case 'textarea':
                     return (
                         <Field key={data.name}
+                            name={data.name}
                             component={Textarea}
                             fieldAttrs={data}
                         />
                     );
-                case select:
+                case 'select':                    
                     return (
                         <Field key={data.name}
+                            name={data.name}
                             component={Select}
                             fieldAttrs={data}
                         />
@@ -59,12 +62,12 @@ class FormTemplate extends React.Component{
             })};
 
             renderButtons = (formBtn) => {
-                return formData.map((data)=>{
+                return formBtn.map((data)=>{
                     switch (data.type) {
-                        case cancel:
-                            return <Link to="/" className="button is-link is-light">{data.label}</Link>;
+                        case 'cancel':
+                            return <Link to="/" key={data.label} className="button is-link is-light">{data.label}</Link>;
                         default:
-                            return <button className="button is-link">{data.label}</button>;
+                            return <button key={data.label} className="button is-link">{data.label}</button>;
                     }
                 })
             }

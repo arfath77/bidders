@@ -6,7 +6,7 @@ import * as actions from '../../actions';
 
 class MyRequirement extends React.Component {
     componentDidMount(){
-        this.props.fetchMyList(this.props.auth._id);
+        this.props.fetchMyList();
     }
     render(){
         return(
@@ -17,8 +17,8 @@ class MyRequirement extends React.Component {
     }
 }
 
-const mapStateToProps = ({auth, mylist}) => {
-    return (auth, mylist);
+const mapStateToProps = ({mylist}) => {
+    return {mylist};
 }
 
 export default connect(mapStateToProps,actions)(MyRequirement);

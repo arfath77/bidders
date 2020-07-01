@@ -1,10 +1,16 @@
 import React from 'react';
 
+import * as actions from '../../actions';
+import { connect } from 'react-redux';
+
 class ShowElement extends React.Component {
+    componentDidMount(){
+        this.props.fetchOne(this.props.match.params.id);
+    }
     renderContent = () => {
         return(
             <div>
-                {this.props.elementData}
+                {this.props.mylist}
             </div>
         )
     }
@@ -17,4 +23,7 @@ class ShowElement extends React.Component {
     }
 }
 
-export default ShowElement;
+const mapStateToProps = state => {
+    return {mylist : state.mylist}
+}
+export default connect(null,actions)(ShowElement);

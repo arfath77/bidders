@@ -3,8 +3,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import CreateRequirement from '../component/requirements/CreateRequirement';
-import MyRequirement from '../component/requirements/MyRequirement';
+import CreateRequirement from '../components/requirements/CreateRequirement';
+import MyRequirement from '../components/requirements/MyRequirement';
 import EditRequirement from '../components/requirements/EditRequirement';
 
 

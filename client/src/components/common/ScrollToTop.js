@@ -9,8 +9,7 @@ class ScrollToTop extends React.Component {
   }
 
   render() {
-    console.log(this.props.children, 'in scroll to top');
-    return null;
+    return (this.props.children);
   }
 }
 

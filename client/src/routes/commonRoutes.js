@@ -2,10 +2,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import Signin from '../component/authentication/Signin';
-import Signup from '../component/authentication/Signup';
-import ListRequirement from '../component/requirements/ListRequirement';
-import Homepage from '../component/Homepage';
+import Signin from '../components/authentication/Signin';
+import Signup from '../components/authentication/Signup';
+import ListRequirement from '../components/requirements/ListRequirement';
+import Homepage from '../components/common/Homepage';
+import ShowElement from '../components/template/ShowElement';
 
 
 
@@ -14,6 +15,7 @@ export default () => (
         <Route path="/" exact component={Homepage} />
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
-        <Route path="/requirements" component={ListRequirement} />
+        <Route path="/requirement/list" component={ListRequirement} />
+        <Route path="/requirement/:id" component={ShowElement} />
     </>
 );

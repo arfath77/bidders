@@ -1,10 +1,24 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import * as actions from '../../actions';
 
 class Header extends React.Component {
+    renderBtn = () => {
+        if (this.props.auth.authority === 'Retailer'){
+            return (
+                <>
+                    <Link to="/requirement/create" className="button is-primary">Post Add</Link>
+                    <Link to="/requirement/myAdds" className="button is-primary">My Adds</Link>
+                </>
+            )
+        } else if(this.props.auth.authority === 'Distributors') {
+            return(
+                <Link to="/distributor/myBids" className="button is-primary">My Bids</Link>
+            )
+        }
+    }
     renderContent = () => {
         switch (this.props.auth) {
             case null:
@@ -20,25 +34,10 @@ class Header extends React.Component {
                         </div>
                 );
             default:
-                renderBtn = () => {
-                    if (this.props.auth.authority === 'Retailer'){
-                        return (
-                            <>
-                                <Link to="/requirement/create" className="button is-primary">Post Add</Link>
-                                <Link to="/requirement/myAdds" className="button is-primary">My Adds</Link>
-                            </>
-                        )
-                    } else {
-                        return(
-                            <Link to="/distributor/myBids" className="button is-primary">My Bids</Link>
-                        )
-                    }
-                }
                 return (
                     <div className="buttons">
                         {this.renderBtn()}
-                        <Link to="/requirement/list" className="button is-primary">All Adds</Link>
-                        <button onClick={() => this.props.logout()} className="button is-light">Logout</button>
+                        <button onClick={() => this.props.logout(this.props.history)} className="button is-light">Logout</button>
                     </div>
                 );
         }
@@ -49,9 +48,9 @@ class Header extends React.Component {
                 
                 <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
                     <div className="navbar-brand">
-                        <a className="navbar-item" href="/">
+                        <Link className="navbar-item" to="/">
                         BIDDERS
-                        </a>
+                        </Link>
                         {/* <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                         <span aria-hidden="true" />
                         <span aria-hidden="true" />
@@ -59,6 +58,11 @@ class Header extends React.Component {
                         </a> */}
                     </div>
                     <div id="navbarBasicExample" className="navbar-menu">
+                        <div className="navbar-start">
+                            <div className="navbar-item">
+                                <Link to="/requirement/list" className="button">All Adds</Link>
+                            </div>
+                        </div>
                         <div className="navbar-end">
                         <div className="navbar-item">
                             {this.renderContent()}
@@ -75,4 +79,4 @@ const mapStateToProps = state => {
     return {auth: state.auth}
 }
 
-export default connect(mapStateToProps, actions)(Header);
+export default connect(mapStateToProps, actions)(withRouter(Header));

@@ -1,20 +1,24 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import {Field} from 'redux-form'
 
-const Select = ({name, iconClass, selectOptions, label}) => {
-    renderSelect = ({ input, meta: { touched, error }, children }) => {
-        <Fragment>
+const Select = ({fieldAttrs : {label, name, iconClass, selectOptions}}) => {
+    
+    const renderSelect = ({ input, meta: { touched, error }, children }) => {
+        return (
+            <>
             <select {...input}>{children}</select>
             <div className="message is-danger">
                     {touched && error}
             </div>
-        </Fragment>
+            </>
+        )
     }
     return(
         <div className="field field-select">
         <div className="control has-icons-left">
             <div className="select is-fullwidth">
                 <Field name={name} component={renderSelect}>
-                    <option disabled value="defaultSelect">
+                    <option value="defaultSelect">
                         {label}
                     </option>
                     {selectOptions.map((option, i) => (
