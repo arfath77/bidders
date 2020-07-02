@@ -2,14 +2,11 @@ import React from 'react';
 import ImageUploader from 'react-images-upload';
 
 const ImageUpload = props => {
-//   const [pictures, setPictures] = useState([]);
 
-  const onDrop = (picture) => {
-    // setPictures([...picture]);
-
-
+  const onDrop = (pictureFiles, pictureDataURLs) => {
+    const URLs = pictureDataURLs.filter(url => url.includes('res.cloudinary'));
     const {input : {onChange}} = props;
-    onChange([...picture]);
+    onChange([...pictureFiles, ...URLs]);
   };
 
   return (

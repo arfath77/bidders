@@ -3,9 +3,12 @@ const bodyParser = require('body-parser')
 const cookieSession = require('cookie-session');
 const mongoose = require('mongoose');
 
-require('./models/User');
-
 const keys = require('./config/keys');
+
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true,   useUnifiedTopology: true})
+require('./models/User');
+require('./models/Requirement');
+
 
 
 const app = express();
@@ -17,6 +20,7 @@ app.use(cookieSession({
 }));
 
 require('./routes/authRouters')(app);
+require('./routes/requirementsRouter')(app);
 
 // if (process.env.NODE_ENV === 'production') {
 //     app.use(express.static('/client/build'));
@@ -33,7 +37,6 @@ require('./routes/authRouters')(app);
 //     app.get('*', (req, res) => res.sendFile(path.resolve('client', 'build', 'index.html')));
 // }
 
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true,   useUnifiedTopology: true})
 
 const PORT = process.env.PORT || 6000;
 app.listen(PORT);

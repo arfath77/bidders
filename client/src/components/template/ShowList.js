@@ -3,15 +3,11 @@ import {connect} from 'react-redux';
 import {Link, withRouter} from 'react-router-dom';
 
 // import ShowElement from './ShowElement';
-import * as actions from '../../actions';
+import {deleteRequirement} from '../../actions';
 
 class ShowList extends React.Component {
     renderImage = (images = []) => {
         return images.length ? images[0] : 'https://bulma.io/images/placeholders/128x128.png';
-    }
-
-    componentDidMount(){
-        this.props.fetchList();
     }
 
     renderMeta = (id, _user) => {
@@ -110,4 +106,4 @@ const mapStateToProps = ({auth}) =>{
     return {auth}
 }
 
-export default connect(mapStateToProps,actions)(withRouter(ShowList));
+export default connect(mapStateToProps,{deleteRequirement})(withRouter(ShowList));

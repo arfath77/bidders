@@ -63,7 +63,7 @@ export const fetchMyList = () => async dispatch => {
 }
 
 export const fetchOne = (id) => async (dispatch) => {
-    const res = await axios.get(`/api/requirement/list/:${id}`);
+    const res = await axios.get(`/api/requirement/single/${id}`);
     dispatch({type:FETCH_SINGLE_REQUIREMENT, payload: res.data});
 }
 

@@ -16,6 +16,6 @@ export default () => (
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
         <Route path="/requirement/list" component={ListRequirement} />
-        <Route path="/requirement/:id" component={ShowElement} />
+        <Route path="/requirement/single/:id" component={ShowElement} />
     </>
 );

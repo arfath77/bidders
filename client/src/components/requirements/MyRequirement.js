@@ -17,8 +17,8 @@ class MyRequirement extends React.Component {
     }
 }
 
-const mapStateToProps = ({mylist}) => {
-    return {mylist};
+const mapStateToProps = (state) => {
+    return {mylist : state.mylist};
 }
 
 export default connect(mapStateToProps,actions)(MyRequirement);
