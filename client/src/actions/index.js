@@ -9,13 +9,16 @@ import {SIGNIN,
     FETCH_MYLIST, 
     DELETE_REQUIREMENT, 
     UPDATE_REQUIREMENT,
-    FETCH_SINGLE_REQUIREMENT
+    FETCH_SINGLE_REQUIREMENT,
+    ADD_FAVOURITE,
+    REMOVE_FAVOURITE
 } from './types';
 
 import cloudinaryUploadImages from '../utils/cloudinaryUploadImages';
 
+
+//Authentication actions start here 
 export const signup = (formValues, history) => async dispatch => {
-    console.log(formValues)
     const res = await axios.post('/api/signup', formValues);
     dispatch({type:SIGNUP, payload:res.data});
     history.push('/');
@@ -37,7 +40,10 @@ export const fetchUser = () => async(dispatch) => {
     const user = await axios.get('/api/current_user');
     dispatch({type:FETCH_USER, payload: user.data});
 }
+//Authentication actions end here
 
+
+//Requirement actions start here 
 export const addRequirement = (formValues, history) => async (dispatch) => {
     const imagesURL = await cloudinaryUploadImages(formValues.images);
     const res = await axios.post('/api/requirement/create', {...formValues, images: imagesURL});
@@ -72,3 +78,16 @@ export const deleteRequirement = (id, history) => async dispatch => {
     dispatch({type:DELETE_REQUIREMENT, payload: res.data});
     history.push('/requirement/myAdds');
 }
+//requirement actions end here
+
+//favourite actions start here
+export const addFavourite = (id) => async dispatch =>{
+    const res = await axios.patch(`/api/favourite/add/${id}`);
+    dispatch({type:ADD_FAVOURITE, payload: res.data});
+}
+
+export const removeFavourite = (id) => async dispatch =>{
+    const res = await axios.delete(`/api/favourite/delete/${id}`);
+    dispatch({type:REMOVE_FAVOURITE, payload: res.data})
+}
+//favourite actions end here

@@ -65,9 +65,17 @@ class FormTemplate extends React.Component{
                 return formBtn.map((data)=>{
                     switch (data.type) {
                         case 'cancel':
-                            return <Link to="/" key={data.label} className="button is-link is-light">{data.label}</Link>;
+                            return (
+                                <div key={data.label} className="control">
+                                    <Link to="/" className="button is-link is-light">{data.label}</Link>
+                                </div>
+                            )
                         default:
-                            return <button key={data.label} className="button is-link">{data.label}</button>;
+                            return (
+                                <div key={data.label} className="control">
+                                    <button className="button is-link">{data.label}</button>
+                                </div>
+                            )
                     }
                 })
             }
@@ -77,9 +85,7 @@ class FormTemplate extends React.Component{
                 <form className="column is-half px-0" onSubmit={this.props.handleSubmit(this.props.onSubmit)}>
                     {this.renderFields(this.props.formData)}
                     <div className="field is-grouped">
-					    <div className="control">
-                            {this.renderButtons(this.props.formBtn)}
-                        </div>
+                        {this.renderButtons(this.props.formBtn)}
                     </div>
                 </form>
         )

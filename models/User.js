@@ -8,6 +8,8 @@ const userSchema = new Schema({
     email : String,
     password : String,
     authority : String,
+    credits: Number,
+    _favourites : [{type: Schema.Types.ObjectId, ref: 'requirement'}],
     dateRegistered : Date
 });
 

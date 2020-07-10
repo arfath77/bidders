@@ -1,26 +1,28 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link, withRouter} from 'react-router-dom';
+import time_ago_in_words from 'time_ago_in_words';
 
-// import ShowElement from './ShowElement';
 import {deleteRequirement} from '../../actions';
+import Favourite from '../common/Favourite';
 
 class ShowList extends React.Component {
     renderImage = (images = []) => {
         return images.length ? images[0] : 'https://bulma.io/images/placeholders/128x128.png';
     }
 
-    renderMeta = (id, _user) => {
+    renderMeta = (element) => {
+        const {_id, _user} = element
         if (this.props.auth){
             if (this.props.auth.authority === 'Retailer' && this.props.auth._id===_user){
                 return(
                     <div className="level-left">
                         <span className="level-item">
-                            <Link to={`/requirement/edit/${id}`} className="icon has-text-info">
+                            <Link to={{pathname: `/requirement/edit/${_id}`, state: {element}}} className="icon has-text-info">
                                 <i className="far fa-edit fa-lg" />
                             </Link>
                         </span>
-                        <span onClick={() => this.props.deleteRequirement(id, this.props.history)} className="level-item">
+                        <span onClick={() => this.props.deleteRequirement(_id, this.props.history)} className="level-item">
                             <span className="icon has-text-danger">
                                 <i className="far fa-trash-alt fa-lg" />
                             </span>
@@ -36,11 +38,7 @@ class ShowList extends React.Component {
                         <i className="far fa-envelope fa-lg" />
                     </span>
                 </span>
-                <span className="level-item">
-                    <span className="icon has-text-danger">
-                        <i className="far fa-heart fa-lg" />
-                    </span>
-                </span>
+                <Favourite id={_id}/>
             </div>
         )
     }
@@ -51,7 +49,7 @@ class ShowList extends React.Component {
                 //card for each elements
                 return (
                     <div key={element._id} className="box">
-                        <article className="media is-relative">
+                        <article className="media is-relative top">
                             <figure className="media-left">
                                 <p className="image is-128x128">
                                     <img alt="" src={this.renderImage(element.images)} />
@@ -59,7 +57,7 @@ class ShowList extends React.Component {
                             </figure>
                             <div className="media-content">
                                 <div className="content">
-                                    <Link to={`/requirement/list/:${element._id}`}>
+                                    <Link to={{pathname: `/requirement/list/${element._id}`, state: {element}}}>
                                         <h3 className="title">{element.title}</h3>
                                     </Link>
                                     <div className="level-left">
@@ -68,22 +66,14 @@ class ShowList extends React.Component {
                                 </div>
                             </div>
                             <div className="media-right">
-                                {/* reply and favourite icon for each element */}
-                                {this.renderMeta(element._id, element._user)}
-                                <div className="level-left">
-                                    <span className="level-item">
-                                        <span className="icon has-text-info">
-                                            <i className="far fa-envelope fa-lg" />
-                                        </span>
-                                    </span>
-                                    <span className="level-item">
-                                        <span className="icon has-text-danger">
-                                            <i className="far fa-heart fa-lg" />
-                                        </span>
-                                    </span>
+                                <div className="bottom-absolute right-absolute left">
+                                    {/* reply and favourite icon for each element */}
+                                    {this.renderMeta(element)}
                                 </div>
                                 <div className="level-left bottom-absolute right-absolute">
-                                    <span className="tag is-light">Posted on {new Date(element.datePosted).toLocaleDateString()}</span>
+                                    <span className="tag is-light">
+                                        Posted {time_ago_in_words(new Date(element.datePosted).toLocaleDateString())}
+                                    </span>
                                 </div>
                             </div>
                         </article>

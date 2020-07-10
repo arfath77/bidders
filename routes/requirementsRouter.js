@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const isSignedIn = require('../middleware/isSignedIn');
 
 const Requirement = mongoose.model('requirement');
-const User = mongoose.model('users');
 
 module.exports = app => {
 

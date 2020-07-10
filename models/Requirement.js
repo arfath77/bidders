@@ -8,7 +8,7 @@ const requirementSchema = new Schema({
     category : String,
     images : [{type:String}],
     description : String,
-    _user: { type: Schema.Types.ObjectId, ref: 'User' },
+    _user: { type: Schema.Types.ObjectId, ref: 'users' },
 	datePosted: Date
 });
 

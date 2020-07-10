@@ -9,8 +9,8 @@ class Header extends React.Component {
         if (this.props.auth.authority === 'Retailer'){
             return (
                 <>
-                    <Link to="/requirement/create" className="button is-primary">Post Add</Link>
-                    <Link to="/requirement/myAdds" className="button is-primary">My Adds</Link>
+                    <Link to="/requirement/create" className="button is-primary">Post Ad</Link>
+                    <Link to="/requirement/myAdds" className="button is-primary">My Ads</Link>
                 </>
             )
         } else if(this.props.auth.authority === 'Distributors') {
@@ -20,7 +20,7 @@ class Header extends React.Component {
         }
     }
     renderContent = () => {
-        switch (this.props.auth) {
+        switch (this.props.auth) {            
             case null:
                 return;
             case false:
@@ -38,14 +38,14 @@ class Header extends React.Component {
                     <div className="buttons">
                         {this.renderBtn()}
                         <button onClick={() => this.props.logout(this.props.history)} className="button is-light">Logout</button>
+                        <span>Howdy, {this.props.auth.name}</span>
                     </div>
                 );
         }
     }
     render() {
         return (
-            <div>
-                
+            <div className="bottom"> 
                 <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
                     <div className="navbar-brand">
                         <Link className="navbar-item" to="/">
@@ -60,7 +60,7 @@ class Header extends React.Component {
                     <div id="navbarBasicExample" className="navbar-menu">
                         <div className="navbar-start">
                             <div className="navbar-item">
-                                <Link to="/requirement/list" className="button">All Adds</Link>
+                                <Link to="/requirement/list" className="button">All Ads</Link>
                             </div>
                         </div>
                         <div className="navbar-end">

@@ -15,7 +15,7 @@ export default () => (
         <Route path="/" exact component={Homepage} />
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
-        <Route path="/requirement/list" component={ListRequirement} />
-        <Route path="/requirement/single/:id" component={ShowElement} />
+        <Route path="/requirement/list" exact component={ListRequirement} />
+        <Route path="/requirement/list/:id" component={ShowElement} />
     </>
 );

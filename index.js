@@ -10,7 +10,6 @@ require('./models/User');
 require('./models/Requirement');
 
 
-
 const app = express();
 
 app.use(bodyParser.json());
@@ -19,8 +18,10 @@ app.use(cookieSession({
     keys: [keys.cookieKey]
 }));
 
+mongoose.set('useFindAndModify', false);
 require('./routes/authRouters')(app);
 require('./routes/requirementsRouter')(app);
+require('./routes/favouriteRouter')(app);
 
 // if (process.env.NODE_ENV === 'production') {
 //     app.use(express.static('/client/build'));

@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default () => (
-	<footer className="footer">
+	<footer className="footer top">
 		<div className="content has-text-centered">
 			<p>
 				<strong>BIDDERS</strong> by <a href="https://jgthms.com">QUVOR</a>. The source code is licensed
