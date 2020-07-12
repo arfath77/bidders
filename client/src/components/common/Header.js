@@ -3,6 +3,7 @@ import {Link, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import * as actions from '../../actions';
+import AddCredits from '../distributor/payments/AddCredits';
 
 class Header extends React.Component {
     renderBtn = () => {
@@ -13,9 +14,13 @@ class Header extends React.Component {
                     <Link to="/requirement/myAdds" className="button is-primary">My Ads</Link>
                 </>
             )
-        } else if(this.props.auth.authority === 'Distributors') {
+        } else if(this.props.auth.authority === 'Distributor') {
             return(
-                <Link to="/distributor/myBids" className="button is-primary">My Bids</Link>
+                <>
+                    <span className="button">Credits: $ {this.props.auth.credits || 0.0 }    </span>
+                    <button onClick={()=> <AddCredits/> } className="button is-primary">Add Credits</button>
+                    <Link to="/distributor/myBids" className="button is-primary">My Bids</Link>
+                </>
             )
         }
     }
