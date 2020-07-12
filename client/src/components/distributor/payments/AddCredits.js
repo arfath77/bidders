@@ -5,41 +5,55 @@ import { Elements } from "@stripe/react-stripe-js";
 import FormTemplate from '../../form/FormTemplate';
 import {creditInput, creditBtn} from './creditInput';
 import CheckoutForm from "./CheckoutForm";
-import Modal from '../../Modal';
 
 const promise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 class AddCredits extends React.Component {
-    state = {showCheckout: false, amount: 0};
+    state = {showCheckout: false, amount: 0, succeeded:false};
 
     renderCheckoutForm = () => {
         if (this.state.showCheckout){
             return (
                 <div className="App">
                     <Elements stripe={promise}>
-                        <CheckoutForm amount={this.state.amount}/>
+                        <CheckoutForm amount={this.state.amount} onSuccess={() => this.setState({succeeded:true})}/>
                     </Elements>
                 </div>
             )
         }
     } 
-    renderModal = () => {
+    renderContent = () => {
+        if (this.state.succeeded){
+            return (
+                <>
+                    <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle className="checkmark__circle" cx="30" cy="30" r="29" fill="none"/>
+                        <path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                    <p className="result-message">
+                        Payment succeeded
+                    </p>
+                    <button onClick={()=> this.setState({succeeded:false, showCheckout: false})} className="button is-light">AddCredits</button>
+                    <button onClick={this.props.onExit} className="button is-danger">Exit</button>
+                </>
+            )
+        }
         return(
-            <Modal>
+            <>
                 <FormTemplate form="payment" 
                     formData={creditInput} 
                     formBtn={creditBtn}
-                    onSubmit={(formValues) => this.props.setState({showCheckout:true, amount:formValues.amount})}
+                    onSubmit={(formValues) => this.setState({showCheckout:true, amount:formValues.amount})}
                 />
                 {this.renderCheckoutForm()}
-            </Modal>
+            </>
         )
     }
     render(){
         console.log('in Addcredits');
         return(
             <>
-                {this.renderModal()}
+                {this.renderContent()}
             </>
         )}
 }

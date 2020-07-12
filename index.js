@@ -9,7 +9,6 @@ mongoose.connect(keys.mongoURI, { useNewUrlParser: true,   useUnifiedTopology: t
 require('./models/User');
 require('./models/Requirement');
 
-
 const app = express();
 
 app.use(bodyParser.json());
@@ -22,6 +21,7 @@ mongoose.set('useFindAndModify', false);
 require('./routes/authRouters')(app);
 require('./routes/requirementsRouter')(app);
 require('./routes/favouriteRouter')(app);
+require('./routes/paymentsRouter')(app);
 
 // if (process.env.NODE_ENV === 'production') {
 //     app.use(express.static('/client/build'));

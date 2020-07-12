@@ -11,7 +11,8 @@ import {SIGNIN,
     UPDATE_REQUIREMENT,
     FETCH_SINGLE_REQUIREMENT,
     ADD_FAVOURITE,
-    REMOVE_FAVOURITE
+    REMOVE_FAVOURITE,
+    ADD_CREDITS
 } from './types';
 
 import cloudinaryUploadImages from '../utils/cloudinaryUploadImages';
@@ -91,3 +92,9 @@ export const removeFavourite = (id) => async dispatch =>{
     dispatch({type:REMOVE_FAVOURITE, payload: res.data})
 }
 //favourite actions end here
+
+//Add credits start here 
+export const addCredits = (paymentId) => async (dispatch) => {
+    const res = await axios.post('/api/addCredits', {paymentId});
+    dispatch({type:ADD_CREDITS, payload: res.data})
+}

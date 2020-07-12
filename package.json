@@ -10,7 +10,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.9.18",
     "node-pre-gyp": "^0.15.0",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "stripe": "^8.69.0"
   },
   "devDependencies": {},
   "scripts": {

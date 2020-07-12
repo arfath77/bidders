@@ -4,8 +4,21 @@ import {connect} from 'react-redux';
 
 import * as actions from '../../actions';
 import AddCredits from '../distributor/payments/AddCredits';
+import Modal from '../../components/Modal';
+
 
 class Header extends React.Component {
+    state = {isModal: false}
+    onExit = () => this.setState({isModal: false});
+    showModal = () => {
+        if (this.state.isModal){
+            return (
+                <Modal title="Add Credits" onExit={this.onExit}>
+                    <AddCredits onExit={this.onExit}/>
+                </Modal>
+            )
+        }
+    }
     renderBtn = () => {
         if (this.props.auth.authority === 'Retailer'){
             return (
@@ -18,7 +31,7 @@ class Header extends React.Component {
             return(
                 <>
                     <span className="button">Credits: $ {this.props.auth.credits || 0.0 }    </span>
-                    <button onClick={()=> <AddCredits/> } className="button is-primary">Add Credits</button>
+                    <button onClick={()=> this.setState({isModal: true}) } className="button is-primary">Add Credits</button>
                     <Link to="/distributor/myBids" className="button is-primary">My Bids</Link>
                 </>
             )
@@ -71,6 +84,7 @@ class Header extends React.Component {
                         <div className="navbar-end">
                         <div className="navbar-item">
                             {this.renderContent()}
+                            {this.showModal()}
                         </div>
                         </div>
                     </div>
