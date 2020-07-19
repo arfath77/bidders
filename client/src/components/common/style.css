@@ -1,15 +1,23 @@
 .bottom {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .top {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .left {
-    margin-left: 20px;
+	margin-left: 20px;
 }
 
 .right {
-    margin-right: 20px;
+	margin-right: 20px;
+}
+
+.search {
+	margin-top: 8px;
+}
+
+.search-width {
+	width: 130vh;
 }
