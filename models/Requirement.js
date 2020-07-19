@@ -1,15 +1,16 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const {Schema} =  mongoose;
+const { Schema } = mongoose;
 
 const requirementSchema = new Schema({
-    title : String,
-    quantity : String,
-    category : String,
-    images : [{type:String}],
-    description : String,
-    _user: { type: Schema.Types.ObjectId, ref: 'users' },
-	datePosted: Date
+	title: String,
+	quantity: String,
+	category: String,
+	images: [{ type: String }],
+	description: String,
+	_user: { type: Schema.Types.ObjectId, ref: "users" },
+	datePosted: Date,
+	status: String,
 });
-
-mongoose.model('requirement', requirementSchema);
+requirementSchema.index({ title: "text", description: "text" });
+mongoose.model("requirement", requirementSchema);

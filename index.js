@@ -1,27 +1,34 @@
-const express =  require('express');
-const bodyParser = require('body-parser')
-const cookieSession = require('cookie-session');
-const mongoose = require('mongoose');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cookieSession = require("cookie-session");
+const mongoose = require("mongoose");
 
-const keys = require('./config/keys');
+const keys = require("./config/keys");
 
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true,   useUnifiedTopology: true})
-require('./models/User');
-require('./models/Requirement');
+mongoose.connect(keys.mongoURI, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
+require("./models/User");
+require("./models/Requirement");
 
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cookieSession({
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [keys.cookieKey]
-}));
+app.use(
+	cookieSession({
+		maxAge: 30 * 24 * 60 * 60 * 1000,
+		keys: [keys.cookieKey],
+	})
+);
 
-mongoose.set('useFindAndModify', false);
-require('./routes/authRouters')(app);
-require('./routes/requirementsRouter')(app);
-require('./routes/favouriteRouter')(app);
-require('./routes/paymentsRouter')(app);
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
+require("./routes/authRouters")(app);
+require("./routes/requirementsRouter")(app);
+require("./routes/favouriteRouter")(app);
+require("./routes/paymentsRouter")(app);
 
 // if (process.env.NODE_ENV === 'production') {
 //     app.use(express.static('/client/build'));
@@ -37,7 +44,6 @@ require('./routes/paymentsRouter')(app);
 //     const path = require('path');
 //     app.get('*', (req, res) => res.sendFile(path.resolve('client', 'build', 'index.html')));
 // }
-
 
 const PORT = process.env.PORT || 6000;
 app.listen(PORT);
